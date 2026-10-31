@@ -2,8 +2,13 @@
 /**
  * Verificação SOMENTE LEITURA da API REST do WordPress.
  *
- * Lê WP_URL, WP_USER e WP_APP_PASSWORD do .env na raiz do projeto, exige HTTPS,
- * e executa apenas requisições GET:
+ * Suporta vários sites. Cada site tem um prefixo no .env (raiz do projeto):
+ *   VITINDOCLIO_WP_URL / VITINDOCLIO_WP_USER / VITINDOCLIO_WP_APP_PASSWORD
+ *   BROMELIA_WP_URL    / BROMELIA_WP_USER    / BROMELIA_WP_APP_PASSWORD
+ * (as chaves antigas sem prefixo, WP_URL/WP_USER/WP_APP_PASSWORD, continuam
+ *  valendo como fallback para o site padrão "vitindoclio").
+ *
+ * Exige HTTPS e executa apenas requisições GET:
  *   1. /wp-json/                      -> API ativa? métodos de autenticação?
  *   2. /wp-json/wp/v2/users/me        -> autenticação funciona? qual papel?
  *   3. páginas, posts, tema ativo, plugins instalados
@@ -12,16 +17,39 @@
  * A senha NUNCA é impressa. Só o nome do usuário autenticado aparece na saída.
  * Nada aqui cria, edita ou apaga conteúdo.
  *
- * Uso:  node wordpress/wp-check.mjs            (saída legível)
- *       node wordpress/wp-check.mjs --json     (saída JSON para relatório)
+ * Uso:  node wordpress/wp-check.mjs --site vitindoclio
+ *       node wordpress/wp-check.mjs --site bromelia [--json]
+ *       node wordpress/wp-check.mjs --all               (todos os sites, um após o outro)
  */
 
 import { readFileSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const JSON_OUT = process.argv.includes("--json");
+const ARGS = process.argv.slice(2);
+const JSON_OUT = ARGS.includes("--json");
+
+// Sites conhecidos: nome -> prefixo das variáveis no .env e URL padrão.
+export const SITES = {
+  vitindoclio: { prefix: "VITINDOCLIO_", defaultUrl: "https://vitindoclio.com.br", label: "Vitor Muniz (artista)" },
+  bromelia: { prefix: "BROMELIA_", defaultUrl: "https://bromeliagroove.com.br", label: "Bromélia Groove" },
+};
+
+if (ARGS.includes("--all")) {
+  let worst = 0;
+  for (const name of Object.keys(SITES)) {
+    const r = spawnSync(process.execPath, [fileURLToPath(import.meta.url), "--site", name, ...ARGS.filter((a) => a !== "--all")], { stdio: "inherit" });
+    worst = Math.max(worst, r.status ?? 1);
+  }
+  process.exit(worst);
+}
+
+const siteIdx = ARGS.indexOf("--site");
+const SITE_NAME = siteIdx !== -1 ? ARGS[siteIdx + 1] : "vitindoclio";
+const SITE = SITES[SITE_NAME];
+if (!SITE) fail(`Site desconhecido "${SITE_NAME}". Opções: ${Object.keys(SITES).join(", ")}`);
 
 // ---------- .env ----------
 function loadEnv() {
@@ -51,14 +79,15 @@ function fail(msg) {
 }
 
 const env = loadEnv();
-const WP_URL = (env.WP_URL || "").replace(/\/+$/, "");
-const WP_USER = env.WP_USER || "";
+// Lê <PREFIXO>WP_X; para o site padrão aceita também WP_X sem prefixo.
+const pick = (key) => env[SITE.prefix + key] ?? (SITE_NAME === "vitindoclio" ? env[key] : undefined) ?? "";
+const WP_URL = (pick("WP_URL") || SITE.defaultUrl).replace(/\/+$/, "");
+const WP_USER = pick("WP_USER");
 // Senhas de aplicativo são exibidas com espaços a cada 4 chars; o WP aceita com ou sem.
-const WP_APP_PASSWORD = (env.WP_APP_PASSWORD || "").replace(/\s+/g, "");
+const WP_APP_PASSWORD = pick("WP_APP_PASSWORD").replace(/\s+/g, "");
 
-if (!WP_URL) fail("WP_URL vazio no .env.");
 if (!/^https:\/\//i.test(WP_URL)) {
-  fail(`WP_URL deve começar com https:// (atual: ${WP_URL}). Autenticação não deve trafegar sem SSL. Parando.`);
+  fail(`${SITE.prefix}WP_URL deve começar com https:// (atual: ${WP_URL}). Autenticação não deve trafegar sem SSL. Parando.`);
 }
 const HAS_CREDS = Boolean(WP_USER && WP_APP_PASSWORD);
 const AUTH_HEADER = HAS_CREDS
@@ -140,6 +169,8 @@ function diagnose(step, r) {
 // ---------- execução ----------
 const report = {
   checkedAt: new Date().toISOString(),
+  site: SITE_NAME,
+  siteLabel: SITE.label,
   siteUrl: WP_URL,
   https: true,
   httpRedirectsToHttps: null,
@@ -189,7 +220,7 @@ function block(where, msg) {
 
 // 2. autenticação
 if (!HAS_CREDS) {
-  report.auth = { status: null, ok: false, note: "WP_USER/WP_APP_PASSWORD vazios no .env — etapas autenticadas puladas." };
+  report.auth = { status: null, ok: false, note: `${SITE.prefix}WP_USER/${SITE.prefix}WP_APP_PASSWORD vazios no .env — etapas autenticadas puladas.` };
 } else {
   const r = await get("/wp-json/wp/v2/users/me?context=edit", { auth: true });
   const b = r.body && typeof r.body === "object" ? r.body : {};
@@ -285,7 +316,7 @@ if (JSON_OUT) {
 
 const yes = (v) => (v === true ? "sim" : v === false ? "NÃO" : "indeterminado");
 console.log(`\n=== WordPress REST API — verificação somente leitura ===`);
-console.log(`Site:                 ${WP_URL}`);
+console.log(`Site:                 ${SITE.label} [${SITE_NAME}]  ${WP_URL}`);
 console.log(`HTTPS:                ${yes(report.https)}   (http→https redireciona: ${yes(report.httpRedirectsToHttps)})`);
 console.log(`API ativa:            ${yes(report.api.active)}  [HTTP ${report.api.status}]  nome: ${report.api.siteName ?? "-"}`);
 console.log(`Senhas de aplicativo: ${report.api.appPasswordsAdvertised ? "anunciadas no índice" : "NÃO anunciadas no índice"}`);

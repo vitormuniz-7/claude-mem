@@ -1,0 +1,68 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Início — flor termômetro",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Artista.dc.html": {
+      "expand": "fill",
+      "h": 2700,
+      "is_interactive": true,
+      "title": "Página de artista — Vitor Muniz",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "Loja.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": false,
+      "title": "Loja",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "Discografia.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": true,
+      "title": "Discografia — singles / álbuns",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-30T13:05:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "t1": {
+      "kind": "title1",
+      "maxW": 6000,
+      "text": "Bromélia Groove — flor termômetro, cor por artista",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Discografia.dc.html",
+    "Artista.dc.html",
+    "Loja.dc.html"
+  ],
+  "pages": [],
+  "title": "Bromélia Groove — Mockup do site"
+}

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Bromélia Groove — Discografia</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F3FA}
+a{color:#235B43}a:hover{color:#1A4532}
+.bg-cover{transition:transform .35s ease}
+.bg-cover:hover{transform:rotate(-2deg) translateY(-6px)}
+.bg-tab{font:inherit;cursor:pointer;transition:background-color .2s ease,color .2s ease}
+.bg-dd-menu{display:none}
+.bg-dd:hover .bg-dd-menu,.bg-dd:focus-within .bg-dd-menu{display:block}
+.bg-dd-menu a:hover{background:#F4F3FA}
+@media (prefers-reduced-motion: reduce){.bg-cover{transition:none}}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3FA; color: #1E1E1E; font-family: 'DM Sans', system-ui, sans-serif; display: flex; flex-direction: column;">
+
+  <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; padding: 28px clamp(20px, 5vw, 72px);">
+    <a href="Main.dc.html" aria-label="Bromélia Groove — início" style="display: block;"><img src="/_blob/e5a4c3c84c9c44d2a99adb4ae99b206a" alt="Bromélia Groove" style="display: block; width: 176px; height: auto;"></a>
+    <nav aria-label="Principal" style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 16px; font-weight: 500;">
+      <div class="bg-dd" style="position: relative;">
+        <a href="Discografia.dc.html" aria-haspopup="true" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; color: #235B43;">discografia <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+        <div class="bg-dd-menu" style="position: absolute; top: 100%; left: -16px; z-index: 5; padding-top: 10px;">
+          <div style="display: flex; flex-direction: column; min-width: 180px; padding: 8px; background: #FFFFFF; border: 2px solid #235B43; border-radius: 14px;">
+            <a href="#singles" onClick="{{goSingles}}" style="display: flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 8px; text-decoration: none; color: #235B43;">singles</a>
+            <a href="#albuns" onClick="{{goAlbuns}}" style="display: flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 8px; text-decoration: none; color: #235B43;">álbuns</a>
+          </div>
+        </div>
+      </div>
+      <a href="#" style="text-decoration: none; color: #235B43;">vídeos</a>
+      <a href="Loja.dc.html" style="text-decoration: none; color: #235B43;">loja</a>
+      <a href="Main.dc.html#contato" style="text-decoration: none; color: #235B43;">contato</a>
+    </nav>
+  </header>
+
+  <section style="padding: 24px clamp(20px, 5vw, 72px) 112px; display: flex; flex-direction: column; gap: 32px;">
+    <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 2px solid #235B43; padding-bottom: 18px;">
+      <h1 style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #235B43;">discografia</h1>
+      <div role="tablist" aria-label="Tipo de lançamento" style="display: flex; gap: 8px;">
+        <button type="button" role="tab" class="bg-tab" aria-selected="{{singlesOn}}" onClick="{{goSingles}}" style="min-height: 44px; padding: 0 20px; border-radius: 999px; border: 2px solid #235B43; background: {{singlesBg}}; color: {{singlesFg}}; font-weight: 700; font-size: 15px;">singles</button>
+        <button type="button" role="tab" class="bg-tab" aria-selected="{{albunsOn}}" onClick="{{goAlbuns}}" style="min-height: 44px; padding: 0 20px; border-radius: 999px; border: 2px solid #235B43; background: {{albunsBg}}; color: {{albunsFg}}; font-weight: 700; font-size: 15px;">álbuns</button>
+      </div>
+    </div>
+
+    <sc-if value="{{singlesOn}}" hint-placeholder-val="{{true}}">
+      <div id="singles" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 28px;">
+        <sc-for list="{{singles}}" as="r" hint-placeholder-count="4">
+          <a class="bg-cover" href="Artista.dc.html" style="display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: #1E1E1E;">
+            <span style="aspect-ratio: 1; border-radius: 4px; background: {{r.bg}}; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: {{r.fg}}; letter-spacing: -0.02em; text-align: center; padding: 12px;">{{r.title}}</span>
+            <span style="font-size: 17px; font-weight: 600;">{{r.title}}</span>
+            <span style="font-size: 14px; color: #4A4A4A;">{{r.meta}}</span>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{albunsOn}}" hint-placeholder-val="{{false}}">
+      <div id="albuns" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 28px;">
+        <sc-for list="{{albuns}}" as="r" hint-placeholder-count="2">
+          <a class="bg-cover" href="Artista.dc.html" style="display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: #1E1E1E;">
+            <span style="aspect-ratio: 1; border-radius: 4px; background: {{r.bg}}; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: {{r.fg}}; letter-spacing: -0.02em; text-align: center; padding: 12px;">{{r.title}}</span>
+            <span style="font-size: 17px; font-weight: 600;">{{r.title}}</span>
+            <span style="font-size: 14px; color: #4A4A4A;">{{r.meta}}</span>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+  </section>
+
+  <footer style="margin-top: auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; padding: 28px clamp(20px, 5vw, 72px); border-top: 2px solid #235B43;">
+    <img src="/_blob/1444f3001500e613bb38367e38272bd7" alt="Bromélia Groove" style="width: 100px; height: auto;">
+    <p style="margin: 0; font-size: 13px; color: #4A4A4A;">© Bromélia Groove</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const h = (typeof window !== 'undefined' && window.location && window.location.hash) || '';
+    this.state = { tab: h === '#albuns' ? 'albuns' : 'singles' };
+  }
+  renderVals() {
+    const tab = this.state.tab;
+    const on = (t) => tab === t;
+    return {
+      singlesOn: on('singles'), albunsOn: on('albuns'),
+      singlesBg: on('singles') ? '#235B43' : 'transparent', singlesFg: on('singles') ? '#F4F3FA' : '#235B43',
+      albunsBg: on('albuns') ? '#235B43' : 'transparent', albunsFg: on('albuns') ? '#F4F3FA' : '#235B43',
+      goSingles: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ tab: 'singles' }); },
+      goAlbuns: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ tab: 'albuns' }); },
+      singles: [
+        { title: 'Aldamaro', meta: '[ARTISTA(S)] · [ANO]', bg: '#235B43', fg: '#F4F3FA' },
+        { title: 'Querida, Cheguei', meta: 'mt.wav & Vitor Muniz · 2026', bg: '#F2BC6A', fg: '#1E1E1E' },
+        { title: 'Quando eu precisei, cê sumiu', meta: 'Plkeef & Vitor Muniz · 2026', bg: '#8B559D', fg: '#FFFFFF' },
+        { title: 'Sonho de Manhã', meta: 'Vitor Muniz & Whell Beatz · 2026', bg: '#EDEFF5', fg: '#235B43' },
+        { title: 'Ice & Café', meta: 'Vitor Muniz & Plkeef · 2024', bg: '#EDEFF5', fg: '#2F4FD8' },
+        { title: '[SINGLE]', meta: '[ARTISTA] · [ANO]', bg: '#1E1E1E', fg: '#F4F3FA' }
+      ],
+      albuns: [
+        { title: '[ÁLBUM DO JD]', meta: 'JD · [ANO]', bg: '#235B43', fg: '#F4F3FA' },
+        { title: '[ÁLBUM / EP]', meta: '[ARTISTA] · [ANO]', bg: '#8B559D', fg: '#FFFFFF' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

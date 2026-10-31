@@ -1,11 +1,19 @@
-# Integração com o WordPress (vitindoclio.com.br)
+# Integração com o WordPress
 
-Conexão deste projeto com a API REST do site oficial do artista Vitor Muniz,
-hospedado na Hostinger. Autenticação via **Application Passwords** (nativo do WP ≥ 5.6).
+Conexão deste projeto com a API REST de dois sites WordPress hospedados na Hostinger,
+via **Application Passwords** (nativo do WP ≥ 5.6):
 
-## 1. Gerar a senha de aplicativo (feito por você, uma vez)
+| Chave (`--site`) | Site | URL | Prefixo no `.env` |
+|------------------|------|-----|-------------------|
+| `vitindoclio` | Vitor Muniz, artista (site oficial) | https://vitindoclio.com.br | `VITINDOCLIO_` |
+| `bromelia` | Bromélia Groove | https://bromeliagroove.com.br | `BROMELIA_` |
 
-1. Entre no painel: `https://vitindoclio.com.br/wp-admin` (ou a URL temporária da Hostinger).
+O mockup do site da Bromélia Groove está em [`bromeliagroove/mockup/`](bromeliagroove/mockup/README.md).
+
+## 1. Gerar a senha de aplicativo (feito por você, uma vez **por site**)
+
+1. Entre no painel: `https://vitindoclio.com.br/wp-admin` ou `https://bromeliagroove.com.br/wp-admin`
+   (ou a URL temporária da Hostinger).
 2. Menu lateral **Usuários → Perfil** (ou **Usuários → Todos os usuários → seu usuário**).
 3. Role até a seção **Senhas de aplicativo** (em inglês: *Application Passwords*).
    - Se a seção **não aparecer**: ou o site não está em HTTPS, ou um plugin de segurança
@@ -25,18 +33,21 @@ Para revogar depois: na mesma tela, botão **Revogar** ao lado de "Claude Code".
 cp .env.example .env      # só na primeira vez
 ```
 
-Edite o `.env` e preencha `WP_URL`, `WP_USER` e `WP_APP_PASSWORD`.
+Edite o `.env` e preencha o bloco de cada site: `VITINDOCLIO_WP_URL/_WP_USER/_WP_APP_PASSWORD`
+e `BROMELIA_WP_URL/_WP_USER/_WP_APP_PASSWORD`.
 O `.env` já está no `.gitignore`; nunca é commitado, nunca é impresso no terminal
 e não deve ser copiado para nenhum outro arquivo.
 
 ## 3. Testar a conexão (somente leitura)
 
 ```bash
-node wordpress/wp-check.mjs          # relatório legível
-node wordpress/wp-check.mjs --json   # JSON completo
+node wordpress/wp-check.mjs --site vitindoclio   # relatório legível
+node wordpress/wp-check.mjs --site bromelia
+node wordpress/wp-check.mjs --all                # os dois, em sequência
+node wordpress/wp-check.mjs --site bromelia --json   # JSON completo
 ```
 
-O script exige `https://` em `WP_URL` e aborta se não houver. Ele só faz `GET`:
+O script exige `https://` na URL do site e aborta se não houver. Ele só faz `GET`:
 
 | Passo | Endpoint | O que confirma |
 |-------|----------|----------------|
