@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Bromélia Groove — Início</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F3FA}
+a{color:#235B43}a:hover{color:#1A4532}
+.bg-disc:active{cursor:grabbing}
+.bg-disc:focus-visible{outline:3px solid #235B43;outline-offset:10px}
+.bg-term{transform-origin:50% 0;text-decoration-thickness:3px;text-underline-offset:7px;transition:background-color .2s ease}
+.bg-term:hover,.bg-term:focus-visible{background:#DCEFE4}
+.bg-leaf{-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.lf0{-webkit-mask-image:url(/_blob/867c1867b93705f1eae0e63c290b7f51);mask-image:url(/_blob/867c1867b93705f1eae0e63c290b7f51)}
+.lf1{-webkit-mask-image:url(/_blob/81d8ef187ac54926ebf82e7bf0f4fa40);mask-image:url(/_blob/81d8ef187ac54926ebf82e7bf0f4fa40)}
+.lf2{-webkit-mask-image:url(/_blob/5b84cb0be37ed1da053d2f8e339cffef);mask-image:url(/_blob/5b84cb0be37ed1da053d2f8e339cffef)}
+.lf3{-webkit-mask-image:url(/_blob/8714feaf5abb155edfd89d1c05217643);mask-image:url(/_blob/8714feaf5abb155edfd89d1c05217643)}
+.lf4{-webkit-mask-image:url(/_blob/d7ae7096e940ea0edadd9a68ad3cd912);mask-image:url(/_blob/d7ae7096e940ea0edadd9a68ad3cd912)}
+.lfp{-webkit-mask-image:url(/_blob/68979601286920d5911be3d25ec7d4f7);mask-image:url(/_blob/68979601286920d5911be3d25ec7d4f7)}
+.lfall{-webkit-mask-image:url(/_blob/e48e407cfc905836debb7054d6977874);mask-image:url(/_blob/e48e407cfc905836debb7054d6977874)}
+.bg-soc{transition:background-color .2s ease, color .2s ease}
+.bg-soc:hover,.bg-soc:focus-visible{background:#235B43;color:#F4F3FA}
+.bg-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:999px;border:2px solid #235B43;background:transparent;color:#235B43;font:inherit;font-weight:700;font-size:16px;cursor:pointer;text-decoration:none;transition:background-color .2s ease}
+.bg-btn:hover,.bg-btn:focus-visible{background:#DCEFE4}
+.bg-btn[disabled]{opacity:.4;cursor:default;background:transparent}
+.bg-btn-solid{background:#235B43;color:#F4F3FA}
+.bg-btn-solid:hover,.bg-btn-solid:focus-visible{background:#1A4532}
+@keyframes bgshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.bg-shake{animation:bgshake .35s ease}
+@media (prefers-reduced-motion: reduce){.bg-shake{animation:none}}
+</style>
+</helmet>
+<div style="min-height: 100vh; box-sizing: border-box; background: #F4F3FA; color: #1E1E1E; font-family: 'DM Sans', system-ui, sans-serif; display: flex; flex-direction: column;">
+
+
+  <main style="flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(28px, 4.5vh, 48px); padding: clamp(32px, 6vh, 64px) clamp(20px, 5vw, 72px) clamp(24px, 4vh, 40px);">
+
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+      <p style="margin: 0; font-size: 13px; line-height: 1; color: #6B6B6B; text-align: center; white-space: nowrap; letter-spacing: 0.02em;">{{topHint}}</p>
+      <div ref="{{markerRef}}" aria-hidden="true" style="width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 14px solid #235B43; will-change: border-top-color, transform;"></div>
+    </div>
+
+    <button type="button" class="bg-disc" aria-label="{{discAria}}" onPointerDown="{{discDown}}" onPointerMove="{{discMove}}" onPointerUp="{{discUp}}" onPointerCancel="{{discUp}}" onKeyDown="{{discKey}}" style="display: block; padding: 0; border: none; background: transparent; border-radius: 50%; cursor: grab; touch-action: none; width: min(420px, 72vw, 46vh);">
+      <div ref="{{discRef}}" style="position: relative; width: 100%; will-change: transform; transform-origin: 49.94% 52.77%;">
+        <img src="/_blob/8724bb949065cc6089d045f630b0cb6f" alt="" draggable="false" style="display: block; width: 100%; height: auto; pointer-events: none; user-select: none;">
+        <span ref="{{petalsRef}}" class="bg-leaf lfall" aria-hidden="true" style="position: absolute; inset: 0; background: #235B43; opacity: 0; pointer-events: none; will-change: opacity;"></span>
+        <sc-for list="{{leaves}}" as="l" hint-placeholder-count="5">
+          <span ref="{{l.ref}}" class="bg-leaf {{l.cls}}" aria-hidden="true" style="position: absolute; inset: 0; background: #2E9E6E; opacity: 0; pointer-events: none; will-change: opacity, background-color;"></span>
+        </sc-for>
+        <span ref="{{petalRef}}" class="bg-leaf lfp" aria-hidden="true" style="position: absolute; inset: 0; background: #FFE4A8; opacity: 0; pointer-events: none; will-change: opacity;"></span>
+      </div>
+    </button>
+
+    <sc-if value="{{inMenu}}" hint-placeholder-val="{{true}}">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; min-height: 104px; margin-top: {{menuGap}}px;">
+        <a ref="{{termRef}}" class="bg-term" href="{{termHref}}" onClick="{{termClick}}" aria-live="polite" style="display: inline-flex; align-items: center; gap: 14px; min-height: 60px; padding: 0 32px; border-radius: 999px; border: 2px solid #235B43; color: #235B43; text-decoration: none; font-weight: 700; font-size: 26px; letter-spacing: -0.01em; will-change: transform, opacity;">
+          {{termLabel}}
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+        <sc-if value="{{showSub}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; gap: 8px; margin-top: -6px;">
+            <sc-for list="{{subItems}}" as="si" hint-placeholder-count="2">
+              <a href="{{si.href}}" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 999px; border: 2px solid #2E9E6E; color: #235B43; text-decoration: none; font-weight: 600; font-size: 15px; background: #FFFFFF;">{{si.label}}</a>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="display: flex; gap: 10px; align-items: center;" aria-hidden="true">
+          <sc-for list="{{dots}}" as="d" hint-placeholder-count="4">
+            <span style="width: {{d.size}}; height: {{d.size}}; border-radius: 50%; background: {{d.color}}; transition: all .25s ease;"></span>
+          </sc-for>
+          <span ref="{{gameDotRef}}" style="width: 0; height: 12px; margin-left: -10px; border-radius: 50%; background: #F2BC6A; opacity: 0; will-change: width, margin-left, opacity;"></span>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{inGame}}" hint-placeholder-val="{{false}}">
+      <div ref="{{panelRef}}" style="display: flex; flex-direction: column; align-items: center; gap: 18px; min-height: 104px; width: min(520px, 100%); text-align: center; margin-top: {{menuGap}}px;">
+        <div style="display: flex; align-items: center; gap: 16px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #6B6B6B;">
+          <span>nível <strong style="color: #1E1E1E;">{{level}}</strong></span>
+          <span aria-hidden="true">·</span>
+          <span>recorde <strong style="color: #1E1E1E;">{{record}}</strong></span>
+        </div>
+
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; min-height: 28px;" aria-label="Sequência">
+          <sc-for list="{{seqDots}}" as="s" hint-placeholder-count="3">
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: {{s.bg}}; border: 2px solid {{s.border}}; box-sizing: border-box; transform: scale({{s.scale}}); transition: transform .15s ease, background-color .15s ease;"></span>
+          </sc-for>
+        </div>
+
+        <p aria-live="polite" style="margin: 0; font-size: 20px; font-weight: 600; color: {{promptColor}}; min-height: 28px;">{{prompt}}</p>
+
+        <sc-if value="{{showConfirm}}" hint-placeholder-val="{{true}}">
+          <button type="button" class="bg-btn bg-btn-solid" onClick="{{confirm}}" disabled="{{confirmDisabled}}" style="min-height: 56px; padding: 0 30px; font-size: 18px; background: {{topColorHex}}; border-color: {{topColorBorder}}; color: {{topColorText}};">{{confirmLabel}}</button>
+        </sc-if>
+        <sc-if value="{{showRetry}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; gap: 10px;">
+            <button type="button" class="bg-btn bg-btn-solid" onClick="{{startGame}}">jogar de novo</button>
+            <button type="button" class="bg-btn" onClick="{{quitGame}}">sair</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{showQuit}}" hint-placeholder-val="{{false}}">
+          <button type="button" onClick="{{quitGame}}" style="border: none; background: transparent; font: inherit; font-size: 13px; color: #6B6B6B; cursor: pointer; text-decoration: underline; text-underline-offset: 4px;">sair do jogo</button>
+        </sc-if>
+      </div>
+    </sc-if>
+
+  </main>
+
+  <footer style="display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 3vh, 32px); padding: 0 clamp(20px, 5vw, 72px) clamp(24px, 4vh, 40px); margin-top: -20px;">
+  <nav aria-label="Redes sociais" style="display: flex; align-items: center; justify-content: center; gap: 16px;">
+    <a class="bg-soc" href="#" aria-label="Instagram" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; border: 2px solid #235B43; color: #235B43;">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
+    </a>
+    <a class="bg-soc" href="#" aria-label="Spotify" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; border: 2px solid #235B43; color: #235B43;">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M7.5 9.5c3-1 6.5-.8 9.5.8"></path><path d="M8 12.5c2.5-.8 5.3-.6 7.6.7"></path><path d="M8.6 15.3c1.9-.6 4-.4 5.8.5"></path></svg>
+    </a>
+    <a class="bg-soc" href="#" aria-label="YouTube" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; border: 2px solid #235B43; color: #235B43;">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="4"></rect><polygon points="10 9.5 15 12 10 14.5 10 9.5" fill="currentColor" stroke="none"></polygon></svg>
+    </a>
+    <a class="bg-soc" href="#" aria-label="TikTok" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; border: 2px solid #235B43; color: #235B43;">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4v10.5a3.5 3.5 0 1 1-3.5-3.5"></path><path d="M13 4c.4 2.6 2.2 4.4 5 4.6"></path></svg>
+    </a>
+  </nav>
+    <div style="display: flex; justify-content: center; gap: 12px;">
+    <a href="#" style="display: inline-flex; align-items: center; min-height: 32px; padding: 0 14px; border-radius: 999px; border: 1px solid #1E1E1E; color: #1E1E1E; text-decoration: none; font-size: 12px; font-weight: 500;">política de cookies</a>
+    <a href="#" style="display: inline-flex; align-items: center; min-height: 32px; padding: 0 14px; border-radius: 999px; border: 1px solid #1E1E1E; color: #1E1E1E; text-decoration: none; font-size: 12px; font-weight: 500;">política de privacidade</a>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"idleSpeed":{"editor":"range","default":14,"min":0,"max":30,"step":1,"unit":"°/s","section":"Giro"},"dwell":{"editor":"range","default":0.35,"min":0,"max":1,"step":0.05,"section":"Giro"},"window":{"editor":"range","default":16,"min":6,"max":36,"step":2,"unit":"°","section":"Giro"},"menuGap":{"editor":"range","default":12,"min":-24,"max":96,"step":4,"unit":"px","section":"Layout"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    // 'at' = angle of each tip, clockwise from the top, around the true rotation center of the symbol
+    // (49.94% / 52.77% of the PNG). The five green leaves are the menu; the big yellow petal is the hidden game.
+    // the five leaves, by tip angle; three carry a menu, two carry nothing (they pass the top quietly)
+    this.menu = [
+      { label: 'discografia', href: 'Discografia.dc.html', at: 0, sub: [{ label: 'singles', href: 'Discografia.dc.html#singles' }, { label: 'álbuns', href: 'Discografia.dc.html#albuns' }] },
+      { label: 'vídeos', href: '#videos', at: 72 },
+      { label: 'loja', href: 'Loja.dc.html', at: 144 },
+      { label: '', href: '', at: 216 },
+      { label: 'contato', href: '#contato', at: 288 }
+    ];
+    this.petalAt = 246.7;
+    // hit grid: 60×59 cells of 15 px over the 900×877 PNG; 1-5 = leaf (sobre…loja, by tip order), 6 = yellow petal, 0 = nothing
+    this.hitCols = 60; this.hitRows = 59; this.hitCell = 15;
+    this.hitGrid = '000000000000000000000000000011110000000000000000000000000000000000000000000000000000000111111000000000000000000000000000000000000000000000000000001111111000000000000000000000000000000000000000000000000000011111111100000000000000000000000000000000000000000000000000111111111100000000000000000000000000000000000000000000000001111111111100000000000000000000000000000000000000000000000011111111111110000000010000000000000000000000000000000000000011111111111110000000002200000000000000000000000000000000000111111111111111000000000200000000000000000000000000110000000111111111111110000000000000000000000000000000000000500000000011111111111100000000000000000000000000000000000000000000000001111111111000000000000000000000000000000000000000000000000000001111100000000000000000000000000000000000000000000000000000000011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000002222200000000000000000000000000000000000000000000000000000022222222000000000000000000000000000000000000000000000000000022222222220000005555555555000000000000000000000000000000000022222222222200055555555555500000000000000000000000000000000022222222222220055555555555500000000000000000000000000000000022222222222220555555555555500000000000000000000000000000000222222222222222055555555555500000000000000000000000000000000022222222222220055555555555550000000000000000000000000000000002222222222220005555555555550000000000000000000000000000000000222222222200005555555555550000000000000000000000000000000000222222220000000555555555666660000000000000000000000000000000022222200000000555555555666660000000000000000000000000000000002222000000000055555556666666000000000000000000000000000000000222000000000055555566666666000000000000000000000000000000000002000000000005555666666666000000000000000000000000000000000000200000000000555666666660000000000000000000000000000000000000000000000000006666666660000000000000000000000000000000000000020000000000006666666600000000000000000000000000000000000000200000000000006666666600000000000000000000000000000000000003300000000000066666666600000000000000000000000000000000000033000000000000066666666000000000000000000000000000000000000330000000000000066666666000000000000000000000000000000033333000000000000000666666666000000000000000000000000000000333333000000000000000666666666000000000000000000000000000003333333000000000000550666666666000000000000000000000000000033333333000000000000044006666666000000000000000000000000000033333333000000000000004400666666600000000000000000000000000033333333000000000000000440006666666000000000000000000000000033333333000000000000000004400066666660000000000000000000000333333330000000000000000000044044446644400000000000000000000333333330000000000000000000000444444444440000000000000000003333333330000000000000000000000444444444444000000000000000003333333330000000000000000000004444444444444400000000000000033333333330000000000000000000004444444444444440000000000000033333333330000000000000000000004444444444444440000000000000333333333330000000000000000000004444444444444440000000000003333333333330000000000000000000004444444444444444000000000033033333333300000000000000000000004444444444444004400000000330000333333300000000000000000000004444444440000000440000003300000003333300000000000000000000000040000000000000044000033000000000030000000000000000000000000000000000000000000444300000000000000000000000000000000000000000000000000000000040000000000000000000000000000';
+    // notches the flower settles on: the leaves that have a menu, plus the game petal
+    this.tips = this.menu.filter((m) => m.label).map((m) => m.at).concat([this.petalAt]).sort((a, b) => a - b);
+    // game palettes: 6 colours each (5 for the leaves + 1 base for every other petal), all built around the
+    // manual's green #235B43, purple #8B559D, yellow #F2BC6A and lavender #F4F3FA. A new one is drawn every level.
+    const L = (name, hex) => ({ name, hex, text: this.lum(hex) > 0.45 ? '#1E1E1E' : '#FFFFFF' });
+    // the centre of the flower (every petal that is not a leaf) is always the same neutral in the game
+    this.center = '#D9D8E0';
+    this.neutral = { name: 'neutra', hex: this.center, text: '#1E1E1E' };
+    // one fixed palette: the three logo colours plus blue (back by request) and an earthy terracotta
+    this.palettes = [
+      { title: 'bromélia', leaves: [L('verde', '#235B43'), L('roxo', '#8B559D'), L('amarelo', '#F2BC6A'), L('azul', '#2F6FD8'), L('terracota', '#B5572E')] }
+    ];
+    this.state = {
+      top: 0, locked: true, gameTop: false, mode: 'menu',
+      level: 1, seq: [], pos: 0, phase: 'show', showIdx: -1, colorOf: [0, 1, 2, 3, 4], pal: 0,
+      record: this.loadRecord(), lastResult: ''
+    };
+    this.discRef = { current: null };
+    this.termRef = { current: null };
+    this.markerRef = { current: null };
+    this.gameDotRef = { current: null };
+    this.petalRef = { current: null };
+    this.petalsRef = { current: null };
+    this.panelRef = { current: null };
+    this.leafRefs = this.menu.map(() => ({ current: null }));
+    this.angle = 0;
+    this.vel = 0;
+    this.drag = null;
+    this.last = 0;
+    this.dir = 1;          // default clockwise (+1); -1 = counter-clockwise. Follows the user's last gesture.
+    this.holdUntil = 0;    // while now < holdUntil the flower stays fixed on a tip
+    this.mode = 'idle';    // idle | settle | hold
+    this.timers = [];
+  }
+
+  lum(hex) {
+    const p = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+    return 0.2126 * p[0] + 0.7152 * p[1] + 0.0722 * p[2];
+  }
+  pal() { return this.palettes[0]; }
+  leafColor(i) { const ci = this.state.colorOf[i]; return ci < 0 ? this.neutral : this.pal().leaves[ci]; }
+
+  // ---------- storage ----------
+  loadRecord() { try { return parseInt(localStorage.getItem('bromelia-genius-record') || '0', 10) || 0; } catch (e) { return 0; } }
+  saveRecord(n) { try { localStorage.setItem('bromelia-genius-record', String(n)); } catch (e) {} }
+  bumpRecord(n) {
+    if (n <= this.state.record) return {};
+    this.saveRecord(n);
+    return { record: n };
+  }
+
+  // ---------- geometry ----------
+  touch(now) { this.holdUntil = (now || performance.now()) + 3000; }
+  dist(at) { let d = Math.abs(((at + this.angle) % 360 + 360) % 360); return d > 180 ? 360 - d : d; }
+  nearestLeaf(all) {
+    let best = 0, bestD = 999;
+    this.menu.forEach((m, i) => { if (!all && !m.label) return; const d = this.dist(m.at); if (d < bestD) { bestD = d; best = i; } });
+    return { i: best, d: bestD };
+  }
+  nearestTip(list) {
+    let best = list[0], bestD = 999;
+    list.forEach((at) => { const d = this.dist(at); if (d < bestD) { bestD = d; best = at; } });
+    return { at: best, d: bestD };
+  }
+  tipDelta(list) {
+    const n = this.nearestTip(list);
+    let delta = ((-(n.at + this.angle)) % 360 + 360) % 360;
+    if (delta > 180) delta -= 360;
+    return delta;
+  }
+  pointerAngle(e, box) {
+    const cx = box.left + box.width / 2, cy = box.top + box.height / 2;
+    return Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
+  }
+  snapToAngle(at, dir) {
+    let delta = ((-(at + this.angle)) % 360 + 360) % 360;
+    if (dir < 0) delta = delta - 360;
+    if (dir === 0) { if (delta > 180) delta -= 360; }
+    this.vel = Math.max(220, Math.abs(delta) * 2.4) * Math.sign(delta || 1);
+    this.mode = 'settle';
+    this.snapExact = true;   // a deliberate jump always lands exactly on the notch, even at hard levels
+    this.touch();
+  }
+  tipUnder(x, y, box) {
+    // which petal sits under a click: take the point back into the PNG's own (unrotated) pixels
+    // around the true rotation center and look it up in the hit grid
+    const w = box.width, h = box.height;
+    const dx = x - (box.left + 0.4994 * w), dy = y - (box.top + 0.5277 * h);
+    const a = -this.angle * Math.PI / 180;
+    const lx = (dx * Math.cos(a) - dy * Math.sin(a)) / w * 900 + 449.5;
+    const ly = (dx * Math.sin(a) + dy * Math.cos(a)) / w * 900 + 462.8;
+    const col = Math.floor(lx / this.hitCell), row = Math.floor(ly / this.hitCell);
+    if (col < 0 || row < 0 || col >= this.hitCols || row >= this.hitRows) return null;
+    const v = parseInt(this.hitGrid.charAt(row * this.hitCols + col), 10) || 0;
+    if (v >= 1 && v <= 5) return (this.state.mode === 'game' || this.menu[v - 1].label) ? this.menu[v - 1].at : null;
+    if (v === 6 && this.state.mode !== 'game') return this.petalAt;
+    return null;
+  }
+  stepTip(dir) {
+    // next notch (leaf or petal) in the given direction, from whatever is nearest the top now
+    const list = this.state.mode === 'game' ? this.menu.map((m) => m.at) : this.tips;
+    const cur = this.nearestTip(list).at;
+    const i = list.indexOf(cur);
+    const next = list[(i + (dir < 0 ? -1 : 1) + list.length) % list.length];
+    this.snapToAngle(next, dir);
+  }
+
+  // ---------- game ----------
+  clearTimers() { this.timers.forEach(clearTimeout); this.timers = []; }
+  later(fn, ms) { this.timers.push(setTimeout(fn, ms)); }
+  shuffled(n) { const a = []; for (let i = 0; i < n; i++) a.push(i); for (let i = n - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  startGame() {
+    this.clearTimers();
+    this.mode = 'hold'; this.holdUntil = Infinity; this.vel = 0;
+    this.setState({ mode: 'game', level: 1, seq: [], pos: 0, phase: 'show', showIdx: -1, colorOf: [0, 1, 2, 3, 4], lastResult: '' }, () => this.startLevel(1));
+  }
+  quitGame() {
+    this.clearTimers();
+    this.mode = 'idle'; this.holdUntil = 0;
+    this.setState({ mode: 'menu', phase: 'show' });
+  }
+  startLevel(level) {
+    // colours never move: the same five leaves keep the same five colours on every level
+    const colorOf = [0, 1, 2, 3, 4];
+    const seq = []; for (let i = 0; i < level; i++) seq.push(Math.floor(Math.random() * 5));
+    const step = Math.max(320, 700 - 45 * level);
+    this.setState({ level, seq, pos: 0, phase: 'show', showIdx: -1, colorOf, lastResult: '' });
+    seq.forEach((_, i) => {
+      this.later(() => this.setState({ showIdx: i }), 500 + i * step);
+      this.later(() => this.setState({ showIdx: -1 }), 500 + i * step + step * 0.7);
+    });
+    this.later(() => { this.mode = 'hold'; this.holdUntil = Infinity; this.setState({ phase: 'play' }); }, 500 + seq.length * step + 200);
+  }
+  confirmMove() {
+    if (this.state.phase !== 'play') return;
+    const n = this.nearestLeaf(true);
+    if (n.d > (this.props.window ?? 16)) return;
+    const leafColor = this.state.colorOf[n.i];
+    if (leafColor < 0) return;                                // a neutral leaf cannot be confirmed
+    const wanted = this.state.seq[this.state.pos];
+    if (leafColor === wanted) {
+      const pos = this.state.pos + 1;
+      if (pos >= this.state.seq.length) {
+        this.setState(Object.assign({ pos, phase: 'won', lastResult: 'nível ' + this.state.level + ' ✓' }, this.bumpRecord(this.state.level)));
+        this.later(() => this.startLevel(this.state.level + 1), 1100);
+      } else {
+        this.setState({ pos });
+      }
+    } else {
+      const p = this.panelRef.current;
+      if (p) { p.classList.remove('bg-shake'); void p.offsetWidth; p.classList.add('bg-shake'); }
+      this.setState(Object.assign({ phase: 'lost', lastResult: 'era ' + this.pal().leaves[wanted].name + ' — você chegou ao nível ' + this.state.level }, this.bumpRecord(this.state.level - 1)));
+    }
+  }
+
+  // ---------- frame loop ----------
+  componentDidMount() {
+    const rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const tick = (now) => {
+      const dt = this.last ? Math.min((now - this.last) / 1000, 0.05) : 0;
+      this.last = now;
+      const inGame = this.state.mode === 'game';
+      const idle = rm ? 0 : (this.props.idleSpeed ?? 14);
+      const win = this.props.window ?? 16;
+      const list = inGame ? this.menu.map((m) => m.at) : this.tips;
+      const nt = this.nearestTip(list);
+      const n = this.nearestLeaf(inGame);
+      const assist = !inGame || this.state.level < 4 || this.snapExact;
+      const drift = inGame && this.state.level >= 6 && this.state.phase === 'play' && !rm;
+      if (!this.drag) {
+        if (this.mode === 'settle') {
+          this.vel *= Math.exp(-dt * 3.2);
+          this.angle += this.vel * dt;
+          if (Math.abs(this.vel) < 160) {
+            if (assist) {
+              const delta = this.tipDelta(list);
+              this.angle += delta * Math.min(1, dt * 7);
+              if (Math.abs(delta) < 0.15) { this.angle += delta; this.vel = 0; this.mode = 'hold'; this.snapExact = false; }
+            } else if (Math.abs(this.vel) < 2) { this.vel = 0; this.mode = 'hold'; }
+          }
+        } else if (this.mode === 'hold') {
+          if (drift) { this.angle += this.dir * 6 * dt; }
+          else if (!inGame && now >= this.holdUntil) this.mode = 'idle';
+        } else {
+          const ease = Math.min(1, nt.d / 40);
+          const target = (this.dir < 0 ? -1 : 1) * idle * ((this.props.dwell ?? 0.35) + (1 - (this.props.dwell ?? 0.35)) * ease);
+          this.vel += (target - this.vel) * Math.min(1, dt * 1.6);
+          this.angle += this.vel * dt;
+        }
+      }
+      const el = this.discRef.current;
+      if (el) el.style.transform = 'rotate(' + this.angle.toFixed(2) + 'deg)';
+
+      // closeness of the nearest leaf (half-window 36°) and of the yellow petal (half-window 22°)
+      const t = Math.min(1, n.d / 36);
+      const c = Math.pow(1 - t, 2);
+      const dp = this.dist(this.petalAt);
+      const tp = Math.min(1, dp / 22);
+      const cp = inGame ? 0 : Math.pow(1 - tp, 2);
+      const gameTop = !inGame && cp > c;                   // the petal is the active notch
+      const g = [35, 91, 67], hi = [46, 158, 110], gold = [181, 125, 28], yel = [242, 188, 106];
+      const mix = (a, b, k) => 'rgb(' + a.map((v, i) => Math.round(v + (b[i] - v) * k)).join(',') + ')';
+      const col = inGame ? this.leafColor(n.i).hex : (gameTop ? mix(g, gold, cp) : mix(g, hi, c));
+      const markerCol = inGame ? col : (gameTop ? mix(g, yel, cp) : mix(g, hi, c));
+      const term = this.termRef.current;
+      if (term && !inGame) {
+        const ta = gameTop ? tp : t;
+        const ca = gameTop ? cp : c;
+        term.style.transform = 'scale(' + (1 - 0.5 * ta * ta).toFixed(3) + ')';
+        term.style.opacity = (1 - 0.8 * ta).toFixed(3);
+        term.style.color = col;
+        term.style.borderColor = col;
+        term.style.textDecorationLine = 'underline';
+        term.style.textDecorationColor = gameTop ? 'rgba(242,188,106,' + ca.toFixed(3) + ')' : 'rgba(46,158,110,' + ca.toFixed(3) + ')';
+      }
+      const mk = this.markerRef.current;
+      if (mk) {
+        mk.style.borderTopColor = markerCol;
+        mk.style.transform = 'scale(' + (1 + 0.25 * (gameTop ? cp : c)).toFixed(3) + ')';
+      }
+      this.menu.forEach((m, i) => {
+        const r = this.leafRefs[i].current;
+        if (!r) return;
+        const ci = Math.pow(1 - Math.min(1, this.dist(m.at) / 36), 2);
+        if (inGame) {
+          r.style.backgroundColor = this.leafColor(i).hex;
+          r.style.opacity = '1';
+        } else {
+          r.style.backgroundColor = '#2E9E6E';
+          r.style.opacity = (gameTop ? 0 : ci).toFixed(3);
+        }
+      });
+      const pr = this.petalRef.current;
+      if (pr) pr.style.opacity = (0.75 * cp).toFixed(3);
+      // in the game every petal that is not one of the five leaves turns the manual's green
+      const pa = this.petalsRef.current;
+      if (pa) { pa.style.opacity = inGame ? '1' : '0'; pa.style.backgroundColor = this.center; }
+      // the game dot grows in at the right end of the row while the petal nears the top; it shrinks away the same way
+      const gd = this.gameDotRef.current;
+      if (gd) {
+        gd.style.width = (12 * cp).toFixed(2) + 'px';
+        gd.style.marginLeft = (-10 + 10 * cp).toFixed(2) + 'px';
+        gd.style.opacity = cp.toFixed(3);
+      }
+      const locked = inGame ? n.d <= win : nt.d <= win;
+      if (n.i !== this.state.top || locked !== this.state.locked || gameTop !== this.state.gameTop) this.setState({ top: n.i, locked, gameTop });
+      this.raf = requestAnimationFrame(tick);
+    };
+    this.raf = requestAnimationFrame(tick);
+  }
+  componentWillUnmount() {
+    if (this.raf) cancelAnimationFrame(this.raf);
+    this.clearTimers();
+  }
+
+  renderVals() {
+    const st = this.state;
+    const inGame = st.mode === 'game';
+    const cur = this.menu[st.top];
+    const P = this.pal();
+    const topColor = this.leafColor(st.top);
+    const topNeutral = st.colorOf[st.top] < 0;
+    const dot = (i) => ({
+      size: !st.gameTop && i === st.top ? '12px' : '8px',
+      color: !st.gameTop && i === st.top ? (st.locked ? '#2E9E6E' : '#235B43') : 'rgba(35,91,67,0.25)'
+    });
+    const seqDots = st.seq.map((ci, i) => {
+      const hidden = st.level >= 3 && st.phase !== 'show' && i >= st.pos;
+      const lit = st.phase === 'show' ? i === st.showIdx : i < st.pos;
+      const hex = P.leaves[ci].hex;
+      const edge = this.lum(hex) > 0.8 ? '#1E1E1E' : hex;   // very light colours need a dark edge on the lavender page
+      return {
+        bg: (st.phase === 'show' && i !== st.showIdx) ? 'transparent' : (hidden ? 'transparent' : hex),
+        border: hidden || (st.phase === 'show' && i !== st.showIdx) ? '#235B43' : edge,
+        scale: lit ? 1.25 : 1
+      };
+    });
+    let prompt = '';
+    if (st.phase === 'show') prompt = 'memorize a sequência';
+    else if (st.phase === 'play') prompt = 'gire a cor ' + (st.pos + 1) + ' de ' + st.seq.length + ' para cima';
+    else prompt = st.lastResult;
+    return {
+      inMenu: !inGame, inGame,
+      menuGap: this.props.menuGap ?? 12,
+      topHint: inGame ? 'cor no topo: ' + topColor.name : 'gire a flor',
+      discAria: inGame ? 'Gire a flor até a cor certa ficar no topo, ou clique numa folha para trazê-la ao topo. Cor no topo: ' + topColor.name : 'Girar a bromélia. Arraste como um disco, clique numa folha para trazê-la ao topo, ou use as setas: a ponta que chega ao topo escolhe o menu.',
+      discRef: this.discRef, termRef: this.termRef, markerRef: this.markerRef, gameDotRef: this.gameDotRef, petalRef: this.petalRef, petalsRef: this.petalsRef, panelRef: this.panelRef,
+      leaves: this.menu.map((m, i) => ({ cls: 'lf' + i, ref: this.leafRefs[i] })),
+      termLabel: st.gameTop ? 'jogar' : cur.label,
+      showSub: !st.gameTop && st.locked && !!cur.sub,
+      subItems: cur.sub || [],
+      termHref: st.gameTop ? '#' : cur.href,
+      termClick: (e) => { if (st.gameTop) { e.preventDefault(); this.startGame(); } },
+      dots: [0, 1, 2, 3, 4].filter((i) => this.menu[i].label).map(dot),
+      // game
+      level: st.level, record: st.record, seqDots, prompt,
+      promptColor: st.phase === 'lost' ? '#D9483B' : (st.phase === 'won' ? '#2E9E6E' : '#1E1E1E'),
+      showConfirm: st.phase === 'play' || st.phase === 'show' || st.phase === 'won',
+      confirmDisabled: st.phase !== 'play' || !st.locked || topNeutral,
+      confirmLabel: st.phase === 'play' ? (st.locked ? (topNeutral ? 'essa folha é neutra' : 'confirmar ' + topColor.name) : 'encaixe uma cor no topo') : (st.phase === 'won' ? 'próximo nível…' : 'observe…'),
+      topColorHex: st.phase === 'play' && st.locked && !topNeutral ? topColor.hex : '#235B43',
+      topColorBorder: st.phase === 'play' && st.locked && !topNeutral ? (this.lum(topColor.hex) > 0.8 ? '#1E1E1E' : topColor.hex) : '#235B43',
+      topColorText: st.phase === 'play' && st.locked && !topNeutral ? topColor.text : '#F4F3FA',
+      showRetry: st.phase === 'lost',
+      showQuit: st.phase !== 'lost',
+      startGame: () => this.startGame(),
+      quitGame: () => this.quitGame(),
+      confirm: () => this.confirmMove(),
+      // flower controls
+      discDown: (e) => {
+        const box = e.currentTarget.getBoundingClientRect();
+        e.currentTarget.setPointerCapture && e.currentTarget.setPointerCapture(e.pointerId);
+        this.drag = { box, a: this.pointerAngle(e, box), t: performance.now(), moved: 0, net: 0, x: e.clientX, y: e.clientY };
+        this.vel = 0;
+        this.touch();
+      },
+      discMove: (e) => {
+        const d = this.drag;
+        if (!d) {
+          const hit = this.tipUnder(e.clientX, e.clientY, e.currentTarget.getBoundingClientRect());
+          e.currentTarget.style.cursor = hit !== null ? 'pointer' : 'grab';
+          return;
+        }
+        const a = this.pointerAngle(e, d.box);
+        let delta = a - d.a;
+        if (delta > 180) delta -= 360;
+        if (delta < -180) delta += 360;
+        const now = performance.now();
+        const dt = Math.max((now - d.t) / 1000, 0.001);
+        this.angle += delta;
+        this.vel = this.vel * 0.6 + (delta / dt) * 0.4;
+        d.a = a; d.t = now; d.moved += Math.abs(delta); d.net += delta;
+        this.touch(now);
+      },
+      discUp: () => {
+        const d = this.drag;
+        this.drag = null;
+        if (d && d.moved < 6) {
+          // a tap on a leaf brings that leaf to the top by the shortest way (menu and game alike)
+          const at = this.tipUnder(d.x, d.y, d.box);
+          if (at !== null) { this.snapToAngle(at, 0); if (inGame) this.holdUntil = Infinity; return; }
+          if (inGame) { this.mode = 'hold'; return; }
+          this.stepTip(this.dir);
+          return;
+        }
+        if (d && Math.abs(d.net) > 6) this.dir = d.net > 0 ? 1 : -1;
+        else if (Math.abs(this.vel) > 60) this.dir = this.vel > 0 ? 1 : -1;
+        this.vel = Math.max(-1800, Math.min(1800, this.vel));
+        this.mode = 'settle';
+        this.snapExact = false;
+        this.touch();
+      },
+      discKey: (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); this.dir = 1; this.stepTip(1); }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); this.dir = -1; this.stepTip(-1); }
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (inGame) this.confirmMove();
+          else if (st.gameTop) this.startGame();
+          else window.location.href = cur.href;
+        }
+        if (e.key === 'Escape' && inGame) { e.preventDefault(); this.quitGame(); }
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
